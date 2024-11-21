@@ -1,0 +1,241 @@
+show databases;
+create database db_sistema_faculdade;
+drop database db_sistema_faculdade;
+use db_sistema_faculdade;
+show tables;
+create table tbl_alunos(
+id int not null primary key auto_increment,
+nome varchar (100) not null,
+cpf varchar (18) not null,
+rg varchar (13) not null,
+data_nascimento date,
+unique index (id)
+);
+create table tbl_endereco(
+id int not null primary key auto_increment,
+logradouro varchar (45) not null,
+cep varchar (45) not null,
+bairro varchar (45) not null,
+cidade varchar (45) not null,
+estado varchar (45) not null,
+pais varchar (45) not null,
+id_alunos int not null,
+constraint fk_alunos_cliente
+foreign key (id_alunos)
+references tbl_alunos(id),
+unique index (id)
+);
+create table tbl_cursos (
+id int not null primary key auto_increment,
+nome varchar (100),
+tempo_duracao varchar (15),
+unique index (id)
+);
+create table tbl_alunos_cursos (
+id int not null primary key auto_increment ,
+id_alunos int not null,
+id_cursos int not null,
+constraint fk_alunos_alunos_cursos
+foreign key (id_alunos)
+references tbl_alunos (id),
+constraint fk_cursos_alunos_cursos
+foreign key (id_cursos)
+references tbl_cursos (id),
+unique index (id)
+);
+create table tbl_professores (
+id int not null primary key auto_increment ,
+nome varchar (100) not null ,
+data_nascimento date ,
+cpf varchar (18) not null,
+rg varchar (13) not null,
+salario float ,
+unique index (id)
+);
+create table tbl_materias (
+id int not null primary key auto_increment ,
+nome varchar (45) not null ,
+id_professores int not null ,
+constraint fk_professores_materias
+foreign key (id_professores)
+references tbl_professores (id),
+unique index (id)
+);
+create table tbl_cursos_materias(
+id int not null primary key auto_increment,
+id_cursos int not null,
+id_materias int not null,
+constraint fk_cursos_cursos_materias
+foreign key (id_cursos)
+references tbl_cursos (id),
+constraint fk_materias_cursos_materias
+foreign key (id_materias)
+references tbl_materias(id),
+unique index (id)
+);
+show tables;
+#### insercoes de dados
+select * from tbl_cursos;
+insert into tbl_cursos ( nome , tempo_duracao )
+values ('administração' , '4 anos') ;
+insert into tbl_cursos ( nome , tempo_duracao )
+values ('análise e desenvolvimento de sistemas' , '2,5 anos') ;
+insert into tbl_cursos ( nome , tempo_duracao )
+values ('arquitetura e urbanismo' , '5 anos') ;
+insert into tbl_cursos ( nome , tempo_duracao )
+values ('biomedicina' , '4 anos') ;
+insert into tbl_cursos ( nome , tempo_duracao )
+values ('engenharia civil' , '5 anos') ;
+insert into tbl_cursos ( nome , tempo_duracao)
+values ('engenharia de computação' , ' 5 anos') ;
+insert into tbl_cursos ( nome , tempo_duracao )
+values ('farmácia' , '5 anos') ;
+insert into tbl_cursos ( nome , tempo_duracao )
+values ('fisioteapia' , '5 anos') ;
+insert into tbl_cursos ( nome , tempo_duracao)
+values ('logística' , '2 anos') ;
+insert into tbl_cursos ( nome , tempo_duracao )
+values ('nutrição' , '4 anos') ;
+insert into tbl_cursos ( nome , tempo_duracao )
+values ('pedagogia' , '4 anos') ;
+insert into tbl_alunos ( nome , cpf , rg , data_nascimento)
+values ('Lucas dos Santos Oliveira' , '44283508802' ,'439874652 ' , '1995-10-25' ) ;
+insert into tbl_alunos ( nome , cpf , rg , data_nascimento)
+values ('Kamilly Teodora Oliveira' , '88574195582' , '879634985' , '1990-05-21') ;
+insert into tbl_alunos ( nome , cpf , rg , data_nascimento)
+values ('Luciano dos Santos oliveira' , '774935922025' , '845397892' , '2000-01-08');
+insert into tbl_alunos ( nome , cpf , rg , data_nascimento)
+values ('Zelia Ferreira Gonzaga' , '99595298895' , '715068492' , '1986-05-29');
+insert into tbl_alunos ( nome , cpf , rg , data_nascimento)
+values ('Elizabete Pereira Jenuino' , '22589435595' , '438520684' , '1996-02-07');
+insert into tbl_alunos ( nome , cpf , rg , data_nascimento)
+values ('Eder dos Anjos Toral' , '77952802208' , '495084788' , '1999-12-12' ) ;
+insert into tbl_alunos ( nome , cpf , rg , data_nascimento)
+values ('Patricia dos Santos Oliveira' , '88720230032' , '105204622' ,'1998-06-23');
+insert into tbl_alunos ( nome , cpf , rg , data_nascimento)
+values ('Rafaela Bernades da Silva' , '44952359925' , '897594652' ,'2006-03-16');
+insert into tbl_alunos ( nome , cpf , rg , data_nascimento)
+values ('Carlos Eduardo Tavares' , '44926803305' , '487592168' , '1995-05-07');
+insert into tbl_alunos ( nome , cpf , rg , data_nascimento)
+values ('Wilson Pereira Daora' , '55139826628' , '265914955' , '1995-02-20');
+insert into tbl_alunos_cursos ( id_alunos , id_cursos)
+values ('1' , '2') ;
+insert into tbl_alunos_cursos ( id_alunos , id_cursos)
+values ('2' , '7');
+insert into tbl_alunos_cursos ( id_alunos , id_cursos)
+values ('3' , '3');
+insert into tbl_alunos_cursos ( id_alunos , id_cursos)
+values ('4', '2');
+insert into tbl_alunos_cursos ( id_alunos , id_cursos)
+values ('5' , '5') ;
+insert into tbl_alunos_cursos ( id_alunos , id_cursos)
+values ('5' , '3') ;
+insert into tbl_alunos_cursos ( id_alunos , id_cursos)
+values ('6', '11');
+insert into tbl_alunos_cursos ( id_alunos , id_cursos)
+values ('7' , '10');
+insert into tbl_alunos_cursos ( id_alunos , id_cursos)
+values ('8' , '6');
+insert into tbl_alunos_cursos ( id_alunos , id_cursos)
+values ('9', '4');
+insert into tbl_alunos_cursos ( id_alunos , id_cursos)
+values ('10' , '1');
+insert into tbl_professores ( nome , data_nascimento , cpf , rg , salario)
+values ('Renata', '1982-06-07' , '88759251152' , '984281988', '3500' );
+insert into tbl_professores ( nome , data_nascimento , cpf , rg , salario)
+values ('João Paulo' , '1986-08-18' , '59195148884' , '487951958' , '3000');
+insert into tbl_professores ( nome , data_nascimento , cpf , rg , salario)
+values ('Maria' , '1975-12-02' , '44892359985' , '789512038' , '2958');
+insert into tbl_professores ( nome , data_nascimento , cpf , rg , salario)
+values ('Clara' , '1988-05-16' , '77985295185' , '498529875' , '3214');
+insert into tbl_professores ( nome , data_nascimento , cpf , rg , salario)
+values ('Roberto' , '1987-02-23' , '22320215515' , '487920165' , '3998');
+insert into tbl_professores ( nome , data_nascimento , cpf , rg , salario)
+values ('Josue' , '1992-10-11' , '5545862025' , '481265988' , '3300');
+insert into tbl_professores ( nome , data_nascimento , cpf , rg , salario)
+values ('Carlos' , '1990-11-14' , '88485298848' , '795194988' , '2789');
+insert into tbl_professores ( nome , data_nascimento , cpf , rg , salario)
+values ('Helena' , '1985-10-02' , '88795487795' , '874951958' , '2900');
+insert into tbl_professores ( nome , data_nascimento , cpf , rg , salario)
+values ('Mario' , '1980-05-19' , '88195239951' , '498526458' , '3400');
+insert into tbl_professores ( nome , data_nascimento , cpf , rg , salario)
+values ('Hellen' , '1991-09-18' , '99519584495' , '795195498' , '3100');
+insert into tbl_professores ( nome , data_nascimento , cpf , rg , salario)
+values ('Jonathan' , '1991-03-12' , '55415879952' , '895205487' , '3550');
+insert into tbl_materias ( nome , id_professores)
+values ('marketing' , '1');
+insert into tbl_materias ( nome , id_professores)
+values ('banco de dados' , '2');
+insert into tbl_materias ( nome , id_professores)
+values ('gestão de projetos' , '3');
+insert into tbl_materias ( nome , id_professores)
+values ('anatomia na biomedicina' , '4');
+insert into tbl_materias ( nome , id_professores)
+values ('Hidráulica e saneamento' , '5');
+insert into tbl_materias ( nome , id_professores)
+values ('Arquitetura de Computadores' , '6');
+insert into tbl_materias ( nome , id_professores)
+values ('FÍSICO-QUÍMICA' , '7');
+insert into tbl_materias ( nome , id_professores)
+values ('Biologia celular e molecular' , '8');
+insert into tbl_materias ( nome , id_professores)
+values ('Ciências Exatas' , '9');
+insert into tbl_materias ( nome , id_professores)
+values ('Microbiologia de alimentos' , '10');
+insert into tbl_materias ( nome , id_professores)
+values ('Filosofia' , '11');
+insert into tbl_cursos_materias (id_cursos , id_materias)
+values ('1' , '1');
+insert into tbl_cursos_materias (id_cursos , id_materias)
+values ('2' , '2');
+insert into tbl_cursos_materias (id_cursos , id_materias)
+values ('3' , '3');
+insert into tbl_cursos_materias (id_cursos , id_materias)
+values ('4' , '4');
+insert into tbl_cursos_materias (id_cursos , id_materias)
+values ('5' , '5');
+insert into tbl_cursos_materias (id_cursos , id_materias)
+values ('6' , '6');
+insert into tbl_cursos_materias (id_cursos , id_materias)
+values ('7' , '7');
+insert into tbl_cursos_materias (id_cursos , id_materias)
+values ('8' , '8');
+insert into tbl_cursos_materias (id_cursos , id_materias)
+values ('9' , '9');
+insert into tbl_cursos_materias (id_cursos , id_materias)
+values ('10' , '10');
+insert into tbl_cursos_materias (id_cursos , id_materias)
+values ('11' , '11');
+insert into tbl_endereco ( logradouro , cep , bairro , cidade , estado , pais , id_alunos)
+values ('Viela Meridiana' , '89498-495' , 'Jardim Pinheirinho' , 'Embu das Artes' , 'São Paulo' ,
+'Brasil' , '1');
+insert into tbl_endereco ( logradouro , cep , bairro , cidade , estado , pais , id_alunos)
+values ('Rua dos Eucaliptos' , '52984-478' , 'Santa Clara' , 'São Paulo' , 'São Paulo' , 'Brasil' , '2');
+insert into tbl_endereco ( logradouro , cep , bairro , cidade , estado , pais , id_alunos)
+values ('Rua Pau Brasil' , '59849-719' , 'Sãp Morritiz' , 'Taboão da Serra' , 'São Paulo' , 'Brasil' ,
+'3');
+insert into tbl_endereco ( logradouro , cep , bairro , cidade , estado , pais , id_alunos)
+values ('Rua Periperi' , '89513-410' , 'Magali' , 'São Paulo' , 'São Paulo' , 'Brasil', '4');
+insert into tbl_endereco ( logradouro , cep , bairro , cidade , estado , pais , id_alunos)
+values ('Rua parnabeiras' , '51956-479' , 'Jardim dos Oliveiras ' , 'Itapecerica da Serra' , 'São
+Paulo ' , 'Brasil' , '5');
+insert into tbl_endereco ( logradouro , cep , bairro , cidade , estado , pais , id_alunos)
+values ('Rua Pinheiros' , '95168-879' , 'Montezano' , 'Campo Limpo' , 'São Paulo' , 'Brasil' , '6');
+insert into tbl_endereco ( logradouro , cep , bairro , cidade , estado , pais , id_alunos)
+values ('Rua dos Limoneiros' , '98497-851' , 'Cotia' , ' Santo Amaro' , 'São Paulo' , 'Brasil' , '7');
+insert into tbl_endereco ( logradouro , cep , bairro , cidade , estado , pais , id_alunos)
+values ('Rua dos Bandeirantes' , '59874-561' , 'Jardim Santo Eduardo' , 'São Paulo' , 'São Paulo'
+,'Brasil' , '8');
+insert into tbl_endereco ( logradouro , cep , bairro , cidade , estado , pais , id_alunos)
+values ('Rua dos Anjelins' , '89248-213' , 'Santo Eduardo' , 'São Lorenço' , 'São paulo' , 'Brasil' ,
+'9');
+insert into tbl_endereco ( logradouro , cep , bairro , cidade , estado , pais , id_alunos)
+values ('Rua Estados Unidos' , '95684-851' , 'Jardim Mimas' , 'Santo Amaro' , 'São Paulo' ,
+'Brasil' , '10');
+select * from tbl_alunos;
+select * from tbl_cursos;
+select * from tbl_alunos_cursos;
+select * from tbl_professores;
+select * from tbl_materias;
+select * from tbl_cursos_materias;
+select * from tbl_endereco;
